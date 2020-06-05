@@ -44,6 +44,7 @@ export async function putFiles(
     const keys: SuccessfullyPushedKey[] = [];
     const warnings: Warning[] = [];
     await doWithFiles(project, filesToPublish, async file => {
+        console.error(`putFiles.doWithFiles: ${JSON.stringify({filesToPublish, file})}`)
         const key = pathTranslation(file.path, inv);
         const contentType = mime.lookup(file.path) || "text/plain";
         const content = await file.getContentBuffer();
@@ -82,6 +83,7 @@ async function gatherParamsFromCompanionFile(project: Project,
     const companionFilePrefix = ".";
     const paramsPath = path.dirname(file.path) + path.sep +
         `${companionFilePrefix}${file.name}${companionFileExtension}`;
+    console.error(JSON.stringify({t: "gatherParamsFromCompanionFile", paramsPath, path: file.path}))
     const paramsFile = await project.getFile(paramsPath);
     if (!paramsFile) {
         return [{}, []];

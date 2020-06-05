@@ -169,6 +169,7 @@ export async function pushToS3(s3: AWS.S3, inv: ProjectAwareGoalInvocation, para
     const project = inv.project;
     const log = inv.progressLog;
 
+    // console.error(`-->> ${JSON.stringify({t: "pushToS3 init", project, inv, params})}`)
     const [fileCount, keysToKeep, warningsFromPut] = await putFiles(project, inv, s3, params);
     let deleted = 0;
     let moreWarnings: string[] = [];
